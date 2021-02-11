@@ -1,28 +1,27 @@
 
 const request = require('request');
-const args = process.argv.slice(2);
-const url = `https://api.thecatapi.com/v1/breeds/search?q=${args}`
+const url = `https://api.thecatapi.com/v1/breeds/search`
 
-//refactoring code
-fetchBreedDescription('Siberian', (error, description) => {
+const fetchBreedDescription = (breedName, callback) => {
+  // const query = `${url}?q=${breedName}`
+  request(url + `?q=${breedName}`, (error, response, body) => {
+    // this error is at top because if not, the const data = JSON... will throw the error first
+    if (error) {
+      callback(error, null);
+      // console.log('error:', error);
+      //if we hit error then exit request
+      // return;
+    }
+    const data = JSON.parse(body)[0];
+    if (data === undefined) {
+      callback('🙀 I do not exist...🙀 ' , null)
+    }
+    else if (data) {
+      const description = data['description']
+      callback(null, description)
+      // console.log(description);
+    }
+  });
+}
 
-});
-
-
-
-request(url, (error, response, body) => {
-  // this error is at top because if not, the const data = JSON... will throw the error first
-  if (error) {
-    console.log('error:', error);
-    //if we hit error then exit request
-    return;
-  }
-  const data = JSON.parse(body)[0];
-  if (data === undefined) {
-    console.log('🙀 I do not exist...🙀 ')
-  }
-  else if (data) {
-    const description = data['description']
-    console.log(description);
-  }
-});
+module.exports = { fetchBreedDescription };
