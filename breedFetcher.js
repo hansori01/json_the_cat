@@ -1,6 +1,6 @@
 
 const request = require('request');
-const url = `https://api.thecatapi!.com/v1/breeds/search`
+const url = `https://api.thecatapi.com/v1/breeds/search`;
 
 const fetchBreedDescription = (userInput, callback) => {
   // const query = `${url}?q=${breedName}`
@@ -12,13 +12,12 @@ const fetchBreedDescription = (userInput, callback) => {
     }
     const data = JSON.parse(body)[0];
     if (data === undefined) {
-      callback('🙀 I do not exist...🙀 ' , null)
-    }
-    else if (data) {
-      const description = data['description']
-      callback(null, description)
+      callback('🙀 I do not exist...🙀 ', null);
+    } else if (data) {
+      const description = data['description'];
+      callback(null, description);
     }
   });
-}
+};
 
 module.exports = { fetchBreedDescription };
