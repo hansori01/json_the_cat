@@ -1,16 +1,14 @@
 
 const request = require('request');
-const url = `https://api.thecatapi.com/v1/breeds/search`
+const url = `https://api.thecatapi!.com/v1/breeds/search`
 
-const fetchBreedDescription = (breedName, callback) => {
+const fetchBreedDescription = (userInput, callback) => {
   // const query = `${url}?q=${breedName}`
-  request(url + `?q=${breedName}`, (error, response, body) => {
+  request(url + `?q=${userInput}`, (error, response, body) => {
     // this error is at top because if not, the const data = JSON... will throw the error first
     if (error) {
       callback(error, null);
-      // console.log('error:', error);
-      //if we hit error then exit request
-      // return;
+      return;
     }
     const data = JSON.parse(body)[0];
     if (data === undefined) {
@@ -19,7 +17,6 @@ const fetchBreedDescription = (breedName, callback) => {
     else if (data) {
       const description = data['description']
       callback(null, description)
-      // console.log(description);
     }
   });
 }
