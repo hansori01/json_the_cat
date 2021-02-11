@@ -1,6 +1,10 @@
 const { fetchBreedDescription } = require('../breedFetcher');
 const { assert } = require('chai');
 
+console.log(null)
+console.log(typeof null)
+
+
 describe('fetchBreedDescription', () => {
   it('returns a string description for a valid breed, via callback', (done) => {
     fetchBreedDescription('Sib', (err, desc) => {
@@ -12,9 +16,12 @@ describe('fetchBreedDescription', () => {
   });
   it('returns an error message when invalid/non-existent breed is passed in', (done) => {
     fetchBreedDescription('Sibbb', (err, desc) => {
-      assert.exists(err);
+      const expectedDesc = '🙀 I do not exist...🙀 '
+      assert.equal(err, expectedDesc);
+      // assert.exists(err);
       done();
     });
 
   });
 });
+
