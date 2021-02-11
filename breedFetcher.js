@@ -3,6 +3,13 @@ const request = require('request');
 const args = process.argv.slice(2);
 const url = `https://api.thecatapi.com/v1/breeds/search?q=${args}`
 
+//refactoring code
+fetchBreedDescription('Siberian', (error, description) => {
+
+});
+
+
+
 request(url, (error, response, body) => {
   // this error is at top because if not, the const data = JSON... will throw the error first
   if (error) {
